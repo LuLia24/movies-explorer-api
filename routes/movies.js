@@ -2,13 +2,12 @@ const { celebrate, Joi } = require('celebrate');
 const router = require('express').Router();
 const {
   getAllMovies, deletMovieById, createMovie,
-  // likeCard,
-  //  dislikeCard,
+
 } = require('../controllers/movies');
 
-router.get('/', getAllMovies);
+router.get('/movies', getAllMovies);
 
-router.post('/', celebrate({
+router.post('/movies', celebrate({
   body: Joi.object().keys({
 
     country: Joi.string().required(),
@@ -22,26 +21,14 @@ router.post('/', celebrate({
     movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
-  }).unknown(true),
+  }),
 
 }), createMovie);
 
-router.delete('/:_id', celebrate({
+router.delete('movies/:_id', celebrate({
   params: Joi.object().keys({
     _id: Joi.string().hex().length(24),
-  }).unknown(true),
+  }),
 }), deletMovieById);
-
-// router.put('/:cardId/likes', celebrate({
-//   params: Joi.object().keys({
-//     cardId: Joi.string().hex().length(24),
-//   }).unknown(true),
-// }), likeCard);
-
-// router.delete('/:cardId/likes', celebrate({
-//   params: Joi.object().keys({
-//     cardId: Joi.string().hex().length(24),
-//   }).unknown(true),
-// }), dislikeCard);
 
 module.exports = router;

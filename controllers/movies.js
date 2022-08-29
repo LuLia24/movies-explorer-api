@@ -1,4 +1,3 @@
-// const user = require('../models/user');
 const Movie = require('../models/movie');
 const ErrorNotFound = require('../errors/ErrorNotFound');
 const ErrorBadRequest = require('../errors/ErrorBadRequest');
@@ -48,7 +47,7 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.getAllMovies = (req, res, next) => {
-  Movie.find({})
+  Movie.find({ owner: req.user._id })
     .then((movie) => res.send(movie))
     .catch((err) => next(err));
 };
@@ -78,59 +77,3 @@ module.exports.deletMovieById = (req, res, next) => {
       }
     });
 };
-
-// module.exports.likeMovie = (req, res, next) => {
-//   Movie.findByIdAndUpdate(
-//     req.params.cardId,
-//     { $addToSet: { likes: req.user._id } },
-//     { new: true },
-//   )
-//     .then((movie) => {
-//       if (!movie) {
-//         next(new ErrorNotFound('Карточка с указанным _id не найдена.'));
-//       } else {
-//         res.send(movie);
-//       }
-//     })
-//     .catch((err) => {
-//       if (err.name === 'ValidationError') {
-//         next(
-//           new ErrorBadRequest(
-//             'Переданы некорректные данные для постановки/снятии лайка.',
-//           ),
-//         );
-//       } else if (err.name === 'CastError') {
-//         next(new ErrorBadRequest('Передан несуществующий _id карточки.'));
-//       } else {
-//         next(err);
-//       }
-//     });
-// };
-
-// module.exports.dislikeCard = (req, res, next) => {
-//   Movie.findByIdAndUpdate(
-//     req.params._id,
-//     { $pull: { likes: req.user._id } },
-//     { new: true },
-//   )
-//     .then((movie) => {
-//       if (!movie) {
-//         next(new ErrorNotFound('Карточка с указанным _id не найдена.'));
-//       } else {
-//         res.send(movie);
-//       }
-//     })
-//     .catch((err) => {
-//       if (err.name === 'ValidationError') {
-//         next(
-//           new ErrorBadRequest(
-//             'Переданы некорректные данные для постановки/снятии лайка.',
-//           ),
-//         );
-//       } else if (err.name === 'CastError') {
-//         next(new ErrorBadRequest('Передан несуществующий _id карточки.'));
-//       } else {
-//         next(err);
-//       }
-//     });
-// };
