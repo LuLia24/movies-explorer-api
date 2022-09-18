@@ -2,6 +2,8 @@ const allowedCors = [
   'domainname.peshky15.nomoredomains.sbs',
   'https://domainname.peshky15.nomoredomains.sbs',
   'http://domainname.peshky15.nomoredomains.sbs',
+  'https://movies.nomorepartiesxyz.ru',
+  'http://movies.nomorepartiesxyz.ru',
   'localhost:3000',
   'http://localhost:3000',
 ];
